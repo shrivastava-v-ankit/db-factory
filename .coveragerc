@@ -1,0 +1,11 @@
+[run]
+branch = True
+source = db_factory/
+
+[report]
+ignore_errors = True
+exclude_lines =
+    cloud
+omit =
+    tests/*
+    */cloud/*

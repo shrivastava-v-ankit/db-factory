@@ -29,10 +29,10 @@ import traceback
 import shutil
 import re
 import os
-__NAME__ = "db_factory"
+__NAME__ = "db-factory"
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-VERSION_FILE = os.path.join(ROOT, __NAME__, ".version")
+VERSION_FILE = os.path.join(ROOT, __NAME__.replace("-", "_"), ".version")
 VERSION_RE = re.compile(r'''__version__ = ['"]([0-9.]+)['"]''')
 
 base = [
@@ -128,32 +128,48 @@ def get_version(filename):
     return version
 
 
+with open("README.md", "r") as f:
+    long_description = f.read()
+
+
 def do_setup():
     setup(
         name=__NAME__,
         version=get_version(filename=VERSION_FILE),
         description="Database Factory;",
-        # long_description=open("README.rst").read(),
+        long_description=long_description,
+        long_description_content_type="text/markdown",
+        keywords=['python', 'os independent', 'database', 'sqlalchemy',
+                  'sqlite3', 'sqlite', 'postgres', 'mysql', 'maridb',
+                  'snowflake', 'bigquery', 'secret manager'],
         author="Ankit Shrivastava",
-        url="https://github.com/ankit-shrivastava/db-factory",
-        packages=find_packages(include=["db_factory"]),
+        url="https://github.com/shrivastava-v-ankit/db-factory",
+        packages=find_packages(include=[__NAME__.replace("-", "_")]),
         include_package_data=True,
         setup_requires=setups,
         install_requires=requires,
-        license="MIT License",
+        license="MIT",
         python_requires=">=3.4",
+        platforms='any',
+        project_urls={
+            'Source': 'https://github.com/shrivastava-v-ankit/db-factory/',
+            'Tracker': 'https://github.com/shrivastava-v-ankit/db-factory/issues',
+        },
         classifiers=[
-            "Development Status :: 5 - Production/Stable",
-            "Intended Audience :: Developers",
-            "Natural Language :: English",
-            "License :: OSI Approved :: Apache Software License",
-            "Programming Language :: Python",
-            "Programming Language :: Python :: 3.4",
-            "Programming Language :: Python :: 3.5",
-            "Programming Language :: Python :: 3.6",
-            "Programming Language :: Python :: 3.7",
-            "Programming Language :: Python :: 3.8",
-            "Programming Language :: Python :: 3.9",
+            'Development Status :: 5 - Production/Stable',
+            'Environment :: Web Environment',
+            'Framework :: Python',
+            'Intended Audience :: Developers',
+            'Natural Language :: English',
+            'License :: OSI Approved :: MIT License',
+            'Operating System :: OS Independent',
+            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3.5',
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
+            'Programming Language :: Python :: 3.8',
+            'Topic :: Software Development :: Libraries :: Python Modules',
+            'Topic :: Software Development :: Version Control :: Git',
         ],
     )
 
@@ -164,8 +180,10 @@ if __name__ == "__main__":
     do_setup()
 
     if "sdist" in sys.argv or "bdist_wheel" in sys.argv:
-        egg_info = os.path.join(ROOT, __NAME__ + ".egg-info")
+        egg_info = os.path.join(ROOT, __NAME__.replace("-", "_") + '.egg-info')
         delete(path=egg_info)
         eggs = os.path.join(ROOT, ".eggs")
         delete(path=eggs)
         delete(path=VERSION_FILE)
+        build_dir = os.path.join(ROOT, "build")
+        delete(path=build_dir)
