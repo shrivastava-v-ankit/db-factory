@@ -1,0 +1,43 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      - run:
+          name: Install system prerequisites
+          command: |
+            sudo apt-get update
+            sudo apt-get install make -y
+      - run:
+          name: Install Database Factory
+          command: |
+            # python3 -m venv venv
+            # . venv/bin/activate
+            pip install .
+      - run:
+          name: Install test dependency 
+          command: |
+            # python3 -m venv venv
+            # . venv/bin/activate
+            pip install pytest pytest-cov
+      - run:
+          name: Test Database Factory
+          command: |
+            # python3 -m venv venv
+            # . venv/bin/activate
+            pytest -v --cov --cov-report html --cov-report xml --junitxml=test-results/database_factory_test/results.xml
+      - store_artifacts:
+          path: htmlcov/
+          destination: coverage/html
+      - store_artifacts:
+          path: coverage.xml
+          destination: coverage/coverage.xml
+      - store_test_results:
+          path: test-results
+workflows:
+  main:
+    jobs:
+      - build-and-test

@@ -1,53 +1,42 @@
 # db-factory
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![PyPI](https://img.shields.io/pypi/v/database-factory)
+[![CircleCI](https://circleci.com/gh/shrivastava-v-ankit/database-factory.svg?style=svg)](https://circleci.com/gh/shrivastava-v-ankit/database-factory)
+
+
+
 Database factory is used to manage/create database connection with execute queries using the connection.
 The concept of having single source to connect various databases and perform database operations.
 
 User need not to worry on the crafting the connection string and to identify the methods for the database operations.
-db-factory supports DML / DDL executions and have support of Pandas DataFrame to create or replace existing tables.
+Database factory supports DML / DDL executions and have support of Pandas DataFrame to create or replace existing tables.
+
+Database factory is wrapper on sqlalchemy for crafting the connection and supports below databases:
+
+```bash
+* Sqlite3
+* PostgreSQl
+* BigQuery
+* Snowflake
+* MariaDB
+* MySQL
+```
+Database factory can be enhanced for all the sqlalchemy supported database.
 
 ## Getting Started
 
-### Setup
-------
-
-Assuming that you have Python and virtualenv installed, set up your environment:
-
-#### Setup virtual environment
-```
-$ mkdir $HOME/db-factory
-$ cd db-factory
-$ virtualenv venv
-```
-```
-$ . venv/bin/activate
+```bash
+pip install flask-cognito-auth
 ```
 
-#### Setup from source:
-```
-$ git clone https://github.com/ankit-shrivastava/db-factory.git
-$ cd db-factory
-$ python -m pip install -e .
-```
-
-#### Setup from Github Repository using Pip:
-```
-$ pip install git+https://github.com/ankit-shrivastava/db-factory.git@master
-```
-
-#### Setup using build:
-```
-$ git clone https://github.com/ankit-shrivastava/db-factory.git
-$ cd db-factory
-$ python setup.py bdist_wheel
-$ pip install dist/*
-```
-
-### Using db-factory
+### Using database-factory
 -----
-```
-from db_factory.manager import DatabaseManager
-db = DatabaseManager(engine_type="sqlite", database="test_db", sqlite_db_path="/tmp")
+```python
+from database_factory.manager import DatabaseManager
+import tempfile
+temp_dir = tempfile.gettempdir()
+db = DatabaseManager(engine_type="sqlite", database="test_db", sqlite_db_path=temp_dir)
 db.create_session()
 
 db.execute_sql(sql="create table test (id int PRIMARY KEY)")
@@ -61,6 +50,12 @@ if rows:
 
 df = db.get_df(sql="select * from test")
 print(df)
+
+db.execute_df(panda_df=df, table_name=copy_test, exist_action="replace")
+db.execute_sql(sql="insert into copy_test values (3)")
+rows_copy = db.execute_sql(sql="select * from copy_test")
+if rows_copy:
+  print(rows_copy)
 ```
 
 ## Appendix
@@ -76,7 +71,7 @@ print(df)
 
 ### Connection parameters for sqlite:
 -----
-```
+```python
 * engine_type: sqlite
 * database: <name of database>
 * sqlite_db_path: <path where database will be created>
@@ -84,7 +79,7 @@ print(df)
 
 ### Connection parameters for postgres:
 -----
-```
+```python
 * engine_type: postgres
 * database: <name of database>
 * username: <postgres user>
@@ -95,7 +90,7 @@ print(df)
 
 ### Connection parameters for mysql:
 -----
-```
+```python
 * engine_type: mysql
 * database: <name of database>
 * username: <mysql user>
@@ -106,7 +101,7 @@ print(df)
 
 ### Connection parameters for mariadb:
 -----
-```
+```python
 * engine_type: mariadb
 * database: <name of database>
 * username: <mariadb user>
@@ -117,7 +112,7 @@ print(df)
 
 ### Connection parameters for snowflake:
 -----
-```
+```python
 * engine_type: snowflake
 * database: <name of database>
 * username: <snowflake user>
@@ -130,7 +125,7 @@ print(df)
 
 ### Connection parameters for bigquery:
 -----
-```
+```python
 * engine_type: bigquery
 * database: <name of database>
 ```
@@ -156,10 +151,31 @@ Note:
       * AWS should be configured
       * User should have permissions of "secretsmanager:GetSecretValue" policy.
 
-```
+```python
 * engine_type: bigquery
 * database: <name of database>
 * secret_id: <Secret name of AWS / GCP Secret Manager Service>
 * secrete_manager_cloud: <aws or gcp as per cloud>
 * aws_region: <aws region: default=> us-east-1>
 ```
+
+
+### Development Setup
+
+#### Using virtualenv
+
+```bash
+python3 -m venv env
+source env/bin/activate
+pip install .
+```
+
+### Contributing
+
+1. Fork repo- https://github.com/shrivastava-v-ankit/database-factory.git
+2. Create your feature branch - `git checkout -b feature/name`
+3. Add Python test (pytest) and covrage report for new/changed feature.
+4. Commit your changes - `git commit -am "Added name"`
+5. Push to the branch - `git push origin feature/name`
+6. Create a new pull request
+
