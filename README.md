@@ -1,4 +1,4 @@
-# db-factory
+# database-factory
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![PyPI](https://img.shields.io/pypi/v/database-factory)

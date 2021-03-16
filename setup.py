@@ -143,7 +143,7 @@ def do_setup():
                   'sqlite3', 'sqlite', 'postgres', 'mysql', 'maridb',
                   'snowflake', 'bigquery', 'secret manager'],
         author="Ankit Shrivastava",
-        url="https://github.com/shrivastava-v-ankit/db-factory",
+        url="https://github.com/shrivastava-v-ankit/database-factory",
         packages=find_packages(include=[__NAME__.replace("-", "_")]),
         include_package_data=True,
         setup_requires=setups,
@@ -152,8 +152,8 @@ def do_setup():
         python_requires=">=3.4",
         platforms='any',
         project_urls={
-            'Source': 'https://github.com/shrivastava-v-ankit/db-factory/',
-            'Tracker': 'https://github.com/shrivastava-v-ankit/db-factory/issues',
+            'Source': 'https://github.com/shrivastava-v-ankit/database-factory/',
+            'Tracker': 'https://github.com/shrivastava-v-ankit/database-factory/issues',
         },
         classifiers=[
             'Development Status :: 5 - Production/Stable',
