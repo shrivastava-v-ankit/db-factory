@@ -1,7 +1,7 @@
 # database-factory
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![PyPI](https://img.shields.io/pypi/v/database-factory)
+[![PyPI](https://img.shields.io/pypi/v/database-factory.svg)](https://pypi.org/project/database-factory)
 [![CircleCI](https://circleci.com/gh/shrivastava-v-ankit/database-factory.svg?style=svg)](https://circleci.com/gh/shrivastava-v-ankit/database-factory)
 
 
