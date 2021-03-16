@@ -11,7 +11,6 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install make -y
-            pip install .
       - run:
           name: Install Database Factory
           command: |
