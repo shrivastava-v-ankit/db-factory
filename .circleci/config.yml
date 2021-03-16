@@ -14,20 +14,14 @@ jobs:
       - run:
           name: Install Database Factory
           command: |
-            # python3 -m venv venv
-            # . venv/bin/activate
             pip install .
       - run:
           name: Install test dependency 
           command: |
-            # python3 -m venv venv
-            # . venv/bin/activate
             pip install pytest pytest-cov
       - run:
           name: Test Database Factory
           command: |
-            # python3 -m venv venv
-            # . venv/bin/activate
             pytest -v --cov --cov-report html --cov-report xml --junitxml=test-results/database_factory_test/results.xml
       - store_artifacts:
           path: htmlcov/
