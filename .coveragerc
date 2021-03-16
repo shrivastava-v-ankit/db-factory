@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = db_factory/
+source = database_factory/
 
 [report]
 ignore_errors = True

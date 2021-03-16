@@ -3,11 +3,11 @@
 import pytest
 import os
 import tempfile
-from db_factory.manager import DatabaseManager
-from db_factory.common.common import Common
+from database_factory.manager import DatabaseManager
+from database_factory.common.common import Common
 
 
-def test_db_factory():
+def test_database_factory():
 
     temp_dir = tempfile.gettempdir()
 
@@ -44,8 +44,7 @@ def test_db_factory():
     assert dict3 == dict1
 
 
-def test_error_db_factory():
-    import os
+def test_error_database_factory():
     temp_dir = tempfile.gettempdir()
 
     db_file = os.path.join(temp_dir, "test_error.db")

@@ -29,7 +29,7 @@ import traceback
 import shutil
 import re
 import os
-__NAME__ = "db-factory"
+__NAME__ = "database-factory"
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 VERSION_FILE = os.path.join(ROOT, __NAME__.replace("-", "_"), ".version")

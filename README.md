@@ -1,12 +1,18 @@
 # db-factory
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![PyPI](https://img.shields.io/pypi/v/database-factory)
+[![CircleCI](https://circleci.com/gh/shrivastava-v-ankit/database-factory.svg?style=svg)](https://circleci.com/gh/shrivastava-v-ankit/database-factory)
+
+
+
 Database factory is used to manage/create database connection with execute queries using the connection.
 The concept of having single source to connect various databases and perform database operations.
 
 User need not to worry on the crafting the connection string and to identify the methods for the database operations.
-db-factory supports DML / DDL executions and have support of Pandas DataFrame to create or replace existing tables.
+Database factory supports DML / DDL executions and have support of Pandas DataFrame to create or replace existing tables.
 
-db-factory is wrapper on sqlalchemy for crafting the connection and supports below databases:
+Database factory is wrapper on sqlalchemy for crafting the connection and supports below databases:
 
 ```bash
 * Sqlite3
@@ -16,49 +22,18 @@ db-factory is wrapper on sqlalchemy for crafting the connection and supports bel
 * MariaDB
 * MySQL
 ```
-db-factory can be enhanced for all the sqlalchemy supported database.
+Database factory can be enhanced for all the sqlalchemy supported database.
 
 ## Getting Started
 
-### Setup
-------
-
-Assuming that you have Python and virtualenv installed, set up your environment:
-
-#### Setup virtual environment
 ```bash
-$ mkdir $HOME/db-factory
-$ cd db-factory
-$ virtualenv venv
-```
-```bash
-$ . venv/bin/activate
+pip install flask-cognito-auth
 ```
 
-#### Setup from source:
-```bash
-$ git clone https://github.com/ankit-shrivastava/db-factory.git
-$ cd db-factory
-$ python -m pip install -e .
-```
-
-#### Setup from Github Repository using Pip:
-```bash
-$ pip install git+https://github.com/ankit-shrivastava/db-factory.git@master
-```
-
-#### Setup using build:
-```bash
-$ git clone https://github.com/ankit-shrivastava/db-factory.git
-$ cd db-factory
-$ python setup.py bdist_wheel
-$ pip install dist/*
-```
-
-### Using db-factory
+### Using database-factory
 -----
 ```python
-from db_factory.manager import DatabaseManager
+from database_factory.manager import DatabaseManager
 import tempfile
 temp_dir = tempfile.gettempdir()
 db = DatabaseManager(engine_type="sqlite", database="test_db", sqlite_db_path=temp_dir)
@@ -183,3 +158,24 @@ Note:
 * secrete_manager_cloud: <aws or gcp as per cloud>
 * aws_region: <aws region: default=> us-east-1>
 ```
+
+
+### Development Setup
+
+#### Using virtualenv
+
+```bash
+python3 -m venv env
+source env/bin/activate
+pip install .
+```
+
+### Contributing
+
+1. Fork repo- https://github.com/shrivastava-v-ankit/database-factory.git
+2. Create your feature branch - `git checkout -b feature/name`
+3. Add Python test (pytest) and covrage report for new/changed feature.
+4. Commit your changes - `git commit -am "Added name"`
+5. Push to the branch - `git push origin feature/name`
+6. Create a new pull request
+
