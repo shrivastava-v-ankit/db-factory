@@ -158,7 +158,6 @@ def do_setup():
         classifiers=[
             'Development Status :: 5 - Production/Stable',
             'Environment :: Web Environment',
-            'Framework :: Python',
             'Intended Audience :: Developers',
             'Natural Language :: English',
             'License :: OSI Approved :: MIT License',
