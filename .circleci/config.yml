@@ -7,7 +7,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install extension 
+          name: Install system prerequisites
+          command: |
+            sudo apt-get update
+            sudo apt-get install make -y
+            pip install .
+      - run:
+          name: Install Database Factory
           command: |
             python3 -m venv venv
             . venv/bin/activate
