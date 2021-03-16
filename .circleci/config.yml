@@ -23,7 +23,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pytest -v --cov --cov-report html --cov-report xml --junitxml=test-results/db_factory_test/results.xml
+            pytest -v --cov --cov-report html --cov-report xml --junitxml=test-results/database_factory_test/results.xml
       - store_artifacts:
           path: htmlcov/
           destination: coverage/html
