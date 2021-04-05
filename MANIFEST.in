@@ -1,6 +1,6 @@
 include database_factory/*.py
 include database_factory/.version
-include database_factory/LICENSE
+include LICENSE
 include database_factory/common/*.py
 include database_factory/cloud/*.py
 include database_factory/cloud/gcp/*.py

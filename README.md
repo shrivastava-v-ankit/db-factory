@@ -27,7 +27,7 @@ Database factory can be enhanced for all the sqlalchemy supported database.
 ## Getting Started
 
 ```bash
-pip install flask-cognito-auth
+pip install database-factory
 ```
 
 ### Using database-factory
@@ -52,6 +52,7 @@ df = db.get_df(sql="select * from test")
 print(df)
 
 db.execute_df(panda_df=df, table_name=copy_test, exist_action="replace")
+# db.execute_df(panda_df=df, table_name=copy_test, exist_action="replace", chunk_size=100)
 db.execute_sql(sql="insert into copy_test values (3)")
 rows_copy = db.execute_sql(sql="select * from copy_test")
 if rows_copy:
