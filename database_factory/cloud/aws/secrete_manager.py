@@ -14,6 +14,9 @@ from .auth import ConnectionType
 from .auth import AwsAuthManager
 
 logger = logging.getLogger(__name__)
+logging.getLogger('boto3').setLevel(logging.INFO)
+logging.getLogger('botocore').setLevel(logging.INFO)
+
 ERROR_CODES = {
     "DecryptionFailureException": "Secrets Manager can't decrypt the protected secret text using the provided KMS key.",
     "InternalServiceErrorException": "An error occurred on the server side.",
