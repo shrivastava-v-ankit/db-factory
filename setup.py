@@ -36,7 +36,7 @@ VERSION_FILE = os.path.join(ROOT, __NAME__.replace("-", "_"), ".version")
 VERSION_RE = re.compile(r'''__version__ = ['"]([0-9.]+)['"]''')
 
 base = [
-    "sqlalchemy-utils",               # Various utility functions for SQLAlchemy
+    "sqlalchemy",                     # Database Abstraction Library
     "pandas",                         # Powerful data structures for data analysis,
                                       # time series, and statistics
     "numpy"                           # NumPy is the fundamental package for array
@@ -60,7 +60,7 @@ gcp = [
 snowflake = [
     "snowflake-connector-python",     # Snowflake Connector Library
     "snowflake-sqlalchemy",           # Snowflake SQLAlchemy Dialect
-    "requests==2.23.0"                # Python HTTP for Humans.
+    "requests"                        # Python HTTP for Humans.
 ]
 
 postgres = [
