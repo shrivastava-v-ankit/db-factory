@@ -64,7 +64,8 @@ class DatabaseManager(object):
                  snowflake_account: str = None,
                  secret_id: str = None,
                  secrete_manager_cloud: str = "aws",
-                 aws_region: str = "us-east-1"
+                 aws_region: str = "us-east-1",
+                 detail_logs: bool = False
                  ):
         """
         Initialization function to initlaize the object
@@ -130,6 +131,8 @@ class DatabaseManager(object):
             aws_region:             (Optional) => AWS region for secret manager
                                     service.
                                     Default: is 'us-east-1'
+            detail_logs:            (Optional) => Detailed logs for debugging.
+                                    Default: Fasle.
         """
         self.engine_type = engine_type
         self.database = database
@@ -147,6 +150,7 @@ class DatabaseManager(object):
         self.aws_region = aws_region
         self.engine = None
         self.session = None
+        self.detail_logs = detail_logs
 
     def fetch_from_secret(self):
         """
@@ -278,9 +282,9 @@ class DatabaseManager(object):
             logger.info(f'Creating SQLAlchemy Dialects session scope.')
             uri, param, is_not_dialect_desc = self.create_uri()
             if param:
-                self.engine = create_engine(uri, echo=True, **param)
+                self.engine = create_engine(uri, echo=self.detail_logs, **param)
             else:
-                self.engine = create_engine(uri, echo=True)
+                self.engine = create_engine(uri, echo=self.detail_logs)
 
             if is_not_dialect_desc:
                 # https: // github.com/sqlalchemy/sqlalchemy/issues/5645
