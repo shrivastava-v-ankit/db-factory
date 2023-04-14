@@ -7,6 +7,7 @@ URI of database handled automatically for multiple databases using SQLAlchemy
 """
 
 import os
+import sys
 import logging
 import traceback
 from urllib.parse import quote_plus as urlquote
@@ -53,7 +54,7 @@ class DatabaseManager(object):
     def __init__(self,
                  engine_type: str,
                  database: str,
-                 sqlite_db_path: str = os.environ["HOME"],
+                 sqlite_db_path: str = None,
                  username: str = None,
                  password: str = None,
                  schema: str = "public",
@@ -136,6 +137,15 @@ class DatabaseManager(object):
         """
         self.engine_type = engine_type
         self.database = database
+
+        if not sqlite_db_path:
+            # Check current OS, it is Windows or Linux
+            is_windows = sys.platform.lower().startswith('win')
+            if is_windows:
+                sqlite_db_path = f"{os.environ['HOMEDRIVE']}{os.environ['HOMEPATH']}"
+            else:
+                sqlite_db_path = os.environ['HOME']
+
         self.sqlite_db_path = sqlite_db_path
         self.username = username
         self.password = password
@@ -241,7 +251,7 @@ class DatabaseManager(object):
             uri = 'sqlite:///' + os.path.join(self.sqlite_db_path,
                                               f"{self.database}.db")
         elif self.engine_type in ["postgres"]:
-            uri = f"postgres+pg8000://{self.username}:{self.password}@{self.host}:{self.port}/{self.database}"
+            uri = f"postgresql+pg8000://{self.username}:{self.password}@{self.host}:{self.port}/{self.database}"
             param = dict(client_encoding="utf8")
             is_not_dialect_desc = True
         elif self.engine_type in ["mysql", "mariadb"]:
@@ -282,7 +292,8 @@ class DatabaseManager(object):
             logger.info(f'Creating SQLAlchemy Dialects session scope.')
             uri, param, is_not_dialect_desc = self.create_uri()
             if param:
-                self.engine = create_engine(uri, echo=self.detail_logs, **param)
+                self.engine = create_engine(
+                    uri, echo=self.detail_logs, **param)
             else:
                 self.engine = create_engine(uri, echo=self.detail_logs)
 

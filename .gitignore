@@ -3,3 +3,6 @@ dist
 env
 **/__pycache__
 .gitignore
+venv
+htmlcov
+test-results
