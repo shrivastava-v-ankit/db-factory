@@ -241,7 +241,7 @@ class DatabaseManager(object):
             uri = 'sqlite:///' + os.path.join(self.sqlite_db_path,
                                               f"{self.database}.db")
         elif self.engine_type in ["postgres"]:
-            uri = f"postgres+pg8000://{self.username}:{self.password}@{self.host}:{self.port}/{self.database}"
+            uri = f"postgresql+pg8000://{self.username}:{self.password}@{self.host}:{self.port}/{self.database}"
             param = dict(client_encoding="utf8")
             is_not_dialect_desc = True
         elif self.engine_type in ["mysql", "mariadb"]:

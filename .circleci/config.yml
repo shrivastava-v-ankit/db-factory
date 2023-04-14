@@ -16,9 +16,9 @@ jobs:
           command: |
             pip install .
       - run:
-          name: Install test dependency 
+          name: Install test dependency
           command: |
-            pip install pytest pytest-cov
+            pip install coverage==7.2.3 exceptiongroup==1.1.1 iniconfig==2.0.0 pluggy==1.0.0 pytest==7.3.0 pytest-cov==4.0.0 tomli==2.0.1
       - run:
           name: Test Database Factory
           command: |

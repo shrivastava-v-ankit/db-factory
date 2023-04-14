@@ -36,44 +36,101 @@ VERSION_FILE = os.path.join(ROOT, __NAME__.replace("-", "_"), ".version")
 VERSION_RE = re.compile(r'''__version__ = ['"]([0-9.]+)['"]''')
 
 base = [
-    "sqlalchemy",                     # Database Abstraction Library
-    "pandas",                         # Powerful data structures for data analysis,
-                                      # time series, and statistics
-    "numpy"                           # NumPy is the fundamental package for array
-                                      # computing with Python.
+    # Database Abstraction Library
+    "sqlalchemy==1.4.47",
+    # Powerful data structures for data analysis, time series, and statistics
+    "pandas==1.5.3"
+
 ]
 
 aws = [
-    "boto3"                           # The AWS SDK for Python
+    # The AWS SDK for Python
+    "boto3==1.26.113"
 ]
 
 gcp = [
-    "google-cloud-bigquery",          # Google BigQuery API client library
-    "google-api-python-client",       # Google API Client Library for Python
-    "google-cloud-bigquery-storage",  # Google BigQuery Storage API client library
-    "google-cloud-secret-manager",    # Google Secret Manager API API client library
-    "google-cloud-resource-manager",  # Google Cloud Resource Manager API client lib
-    "pybigquery",                     # SQLAlchemy dialect for BigQuery
-    "pyarrow"                         # Python library for Apache Arrow
+    # This library simplifies using Google’s various server-to-server authentication mechanisms to access Google APIs.
+    "google-auth==2.17.3",
+    # This library provides an httplib2 transport for google-auth.
+    "google-auth-httplib2==0.1.0",
+    # Google BigQuery API client library
+    "google-cloud-bigquery==3.9.0",
+    # Google API Client Library for Python
+    "google-api-python-client==2.85.0",
+    # Google Secret Manager API API client library
+    "google-cloud-secret-manager==2.16.1",
+    # Google Cloud Resource Manager API client lib
+    "google-cloud-resource-manager==1.9.1",
+    # SQLAlchemy dialect for BigQuery
+    "pybigquery==0.10.2"
 ]
 
 snowflake = [
-    "snowflake-connector-python",     # Snowflake Connector Library
-    "snowflake-sqlalchemy",           # Snowflake SQLAlchemy Dialect
-    "requests"                        # Python HTTP for Humans.
+    # Snowflake Connector Library
+    "snowflake-connector-python==2.7.9",
+    # Snowflake SQLAlchemy Dialect
+    "snowflake-sqlalchemy==1.4.7"
 ]
 
 postgres = [
-    "pg8000"                          # PostgreSQL interface library.
+    # PostgreSQL interface library.
+    "pg8000==1.29.4"
 ]
 
 mysql = [
-    "pymysql"                         # Pure Python MySQL Driver
+    # Pure Python MySQL Driver
+    "pymysql"
+]
+
+dependencies = [
+    "asn1crypto==1.5.1",
+    "botocore==1.29.113",
+    "cachetools==5.3.0",
+    "certifi==2022.12.7",
+    "cffi==1.15.1",
+    "charset-normalizer==2.0.12",
+    "cryptography==36.0.2",
+    "future==0.18.3",
+    "google-api-core==2.11.0",
+    "google-cloud-bigquery-storage==2.19.1",
+    "google-cloud-core==2.3.2",
+    "google-crc32c==1.5.0",
+    "google-resumable-media==2.4.1",
+    "googleapis-common-protos==1.59.0",
+    "greenlet==2.0.2",
+    "grpc-google-iam-v1==0.12.6",
+    "grpcio==1.53.0",
+    "httplib2==0.22.0",
+    "idna==3.4",
+    "jmespath==1.0.1",
+    "numpy==1.24.2",
+    "oscrypto==1.3.0",
+    "packaging==23.1",
+    "proto-plus==1.22.2",
+    "protobuf==4.22.3",
+    "pyarrow==6.0.1",
+    "pyasn1==0.4.8",
+    "pyasn1-modules==0.2.8",
+    "pycparser==2.21",
+    "pycryptodomex==3.17",
+    "pyjwt==2.6.0",
+    "pymysql==1.0.3",
+    "pyopenssl==22.0.0",
+    "pyparsing==3.0.9",
+    "python-dateutil==2.8.2",
+    "pytz==2023.3",
+    "requests==2.28.2",
+    "rsa==4.9",
+    "s3transfer==0.6.0",
+    "scramp==1.4.4",
+    "six==1.16.0",
+    "uritemplate==4.1.1",
+    "urllib3==1.26.15"
 ]
 
 setups = []
 
-ir = (base + aws + gcp + snowflake + postgres + mysql)
+ir = (base + aws + gcp + snowflake + postgres + mysql + dependencies)
 requires = ir
 
 
