@@ -175,7 +175,20 @@ pip install .
 
 1. Fork repo- https://github.com/shrivastava-v-ankit/database-factory.git
 2. Create your feature branch - `git checkout -b feature/name`
-3. Add Python test (pytest) and covrage report for new/changed feature.
+3. Install Python packages
+   * sqlalchemy==1.4.47
+   * pandas==1.5.3
+   * GitPython
+   * coverage==7.2.3
+   * exceptiongroup==1.1.1
+   * iniconfig==2.0.0
+   * pluggy==1.0.0
+   * pytest==7.3.0
+   * pytest-cov==4.0.0
+   * tomli==2.0.1
+4. Run Python test (pytest)
+   * pytest -v --cov --cov-report html --cov-report xml --junitxml=test-results/database_factory_test/results.xml
+5. Add Python test (pytest) and covrage report for new/changed feature.
 4. Commit your changes - `git commit -am "Added name"`
 5. Push to the branch - `git push origin feature/name`
 6. Create a new pull request
