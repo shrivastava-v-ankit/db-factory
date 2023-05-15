@@ -79,7 +79,7 @@ postgres = [
 
 mysql = [
     # Pure Python MySQL Driver
-    "pymysql"
+    "pymysql==1.0.3"
 ]
 
 dependencies = [
@@ -107,7 +107,7 @@ dependencies = [
     "oscrypto==1.3.0",
     "packaging==23.1",
     "proto-plus==1.22.2",
-    "protobuf==4.22.3",
+    "protobuf==3.20.3",
     "pyarrow==6.0.1",
     "pyasn1==0.4.8",
     "pyasn1-modules==0.2.8",
@@ -206,7 +206,7 @@ def do_setup():
         setup_requires=setups,
         install_requires=requires,
         license="MIT",
-        python_requires=">=3.4",
+        python_requires=">=3.7, <4",
         platforms='any',
         project_urls={
             'Source': 'https://github.com/shrivastava-v-ankit/database-factory/',
@@ -219,11 +219,9 @@ def do_setup():
             'Natural Language :: English',
             'License :: OSI Approved :: MIT License',
             'Operating System :: OS Independent',
-            'Programming Language :: Python :: 3.4',
-            'Programming Language :: Python :: 3.5',
-            'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
             'Programming Language :: Python :: 3.8',
+            'Programming Language :: Python :: 3.9',
             'Topic :: Software Development :: Libraries :: Python Modules',
             'Topic :: Software Development :: Version Control :: Git',
         ],
