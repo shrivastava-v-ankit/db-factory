@@ -42,12 +42,14 @@ pip install database-factory["snowflake,aws"]
 ```
 
 ### Following options are supported
-   * aws
-   * gcp
-   * snowflake
-   * postgres
-   * mysql
-   * all: Will install with all libraries.
+   * Secret manager cloud support
+      * aws
+      * gcp
+   * Databases
+      * snowflake
+      * postgres
+      * mysql
+   * all: Will install with libraries of all supported cloud and supported databases.
 
 ### Using database-factory
 -----
