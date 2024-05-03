@@ -4,6 +4,7 @@
 Prerequesites -
   Python Packages:
     * setuptools
+    * wheel
     * GitPython
   System Packages:
     * make
@@ -24,7 +25,11 @@ distutils/setuptools install script.
 """
 
 
-from setuptools import setup, find_packages
+import sys
+from setuptools import setup
+from setuptools import find_packages
+from setuptools import Command
+from textwrap import wrap
 import traceback
 import shutil
 import re
@@ -39,13 +44,23 @@ base = [
     # Database Abstraction Library
     "sqlalchemy==1.4.47",
     # Powerful data structures for data analysis, time series, and statistics
-    "pandas==1.5.3"
-
+    "pandas==1.5.3",
+    "greenlet==2.0.2",
+    "python-dateutil==2.8.2",
+    "pytz==2023.3",
+    "six==1.16.0",
+    "numpy==1.24.2",
+    "pyarrow==6.0.1",
+    "pycparser==2.21"
 ]
 
 aws = [
     # The AWS SDK for Python
-    "boto3==1.26.113"
+    "boto3==1.26.113",
+    "botocore==1.29.113",
+    "jmespath==1.0.1",
+    "s3transfer==0.6.0",
+    "urllib3==1.26.15"
 ]
 
 gcp = [
@@ -62,19 +77,59 @@ gcp = [
     # Google Cloud Resource Manager API client lib
     "google-cloud-resource-manager==1.9.1",
     # SQLAlchemy dialect for BigQuery
-    "pybigquery==0.10.2"
+    "pybigquery==0.10.2",
+    "google-api-core==2.11.0",
+    "google-cloud-bigquery-storage==2.19.1",
+    "google-cloud-core==2.3.2",
+    "google-crc32c==1.5.0",
+    "google-resumable-media==2.4.1",
+    "googleapis-common-protos==1.59.0",
+    "grpc-google-iam-v1==0.12.6",
+    "grpcio==1.53.0",
+    "httplib2==0.22.0",
+    "cachetools==5.3.0",
+    "certifi==2022.12.7",
+    "charset-normalizer==2.0.12",
+    "future==0.18.3",
+    "idna==3.4",
+    "packaging==23.1",
+    "proto-plus==1.22.2",
+    "protobuf==3.20.3",
+    "pyasn1==0.4.8",
+    "pyasn1-modules==0.2.8",
+    "pyparsing==3.0.9",
+    "requests==2.28.2",
+    "rsa==4.9",
+    "uritemplate==4.1.1",
+    "grpcio-status==1.48.2",
+    "urllib3==1.26.15"
 ]
 
 snowflake = [
     # Snowflake Connector Library
     "snowflake-connector-python==2.7.9",
     # Snowflake SQLAlchemy Dialect
-    "snowflake-sqlalchemy==1.4.7"
+    "snowflake-sqlalchemy==1.4.7",
+    "pyjwt==2.6.0",
+    "asn1crypto==1.5.1",
+    "certifi==2022.12.7",
+    "cffi==1.15.1",
+    "charset-normalizer==2.0.12",
+    "cryptography==36.0.2",
+    "idna==3.4",
+    "oscrypto==1.3.0",
+    "pyopenssl==22.0.0",
+    "pyparsing==3.0.9",
+    "pycryptodomex==3.17",
+    "requests==2.28.2",
+    "urllib3==1.26.15"
 ]
 
 postgres = [
     # PostgreSQL interface library.
-    "pg8000==1.29.4"
+    "pg8000==1.29.4",
+    "asn1crypto==1.5.1",
+    "scramp==1.4.4",
 ]
 
 mysql = [
@@ -82,56 +137,20 @@ mysql = [
     "pymysql==1.0.3"
 ]
 
-dependencies = [
-    "asn1crypto==1.5.1",
-    "botocore==1.29.113",
-    "cachetools==5.3.0",
-    "certifi==2022.12.7",
-    "cffi==1.15.1",
-    "charset-normalizer==2.0.12",
-    "cryptography==36.0.2",
-    "future==0.18.3",
-    "google-api-core==2.11.0",
-    "google-cloud-bigquery-storage==2.19.1",
-    "google-cloud-core==2.3.2",
-    "google-crc32c==1.5.0",
-    "google-resumable-media==2.4.1",
-    "googleapis-common-protos==1.59.0",
-    "greenlet==2.0.2",
-    "grpc-google-iam-v1==0.12.6",
-    "grpcio==1.53.0",
-    "httplib2==0.22.0",
-    "idna==3.4",
-    "jmespath==1.0.1",
-    "numpy==1.24.2",
-    "oscrypto==1.3.0",
-    "packaging==23.1",
-    "proto-plus==1.22.2",
-    "protobuf==3.20.3",
-    "pyarrow==6.0.1",
-    "pyasn1==0.4.8",
-    "pyasn1-modules==0.2.8",
-    "pycparser==2.21",
-    "pycryptodomex==3.17",
-    "pyjwt==2.6.0",
-    "pymysql==1.0.3",
-    "pyopenssl==22.0.0",
-    "pyparsing==3.0.9",
-    "python-dateutil==2.8.2",
-    "pytz==2023.3",
-    "requests==2.28.2",
-    "rsa==4.9",
-    "s3transfer==0.6.0",
-    "scramp==1.4.4",
-    "six==1.16.0",
-    "uritemplate==4.1.1",
-    "urllib3==1.26.15"
+setups = [
+    'gitpython',
+    'setuptools',
+    'wheel'
 ]
 
-setups = []
-
-ir = (base + aws + gcp + snowflake + postgres + mysql + dependencies)
-requires = ir
+extras = {
+    "all": (aws + gcp + snowflake + postgres + mysql),
+    "aws": aws,
+    "gcp": gcp,
+    "snowflake": snowflake,
+    "postgres": postgres,
+    "mysql": mysql
+}
 
 
 def delete(path):
@@ -189,6 +208,26 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 
+class List_Extras(Command):
+    """
+    List all available extras
+    Registered as cmdclass in setup() so it can be called with ``python setup.py list_extras``.
+    """
+
+    description = "List available extras"
+    user_options = []
+
+    def initialize_options(self):
+        """Set default values for options."""
+
+    def finalize_options(self):
+        """Set final values for options."""
+
+    def run(self):
+        """List extras."""
+        print("\n".join(wrap(", ".join(extras.keys()), 100)))
+
+
 def do_setup():
     setup(
         name=__NAME__,
@@ -204,10 +243,14 @@ def do_setup():
         packages=find_packages(include=[__NAME__.replace("-", "_")]),
         include_package_data=True,
         setup_requires=setups,
-        install_requires=requires,
+        install_requires=base,
+        extras_require=extras,
         license="MIT",
-        python_requires=">=3.7, <4",
+        python_requires=">=3.8, >=3.9, <3.10",
         platforms='any',
+        cmdclass={
+            'list_extras': List_Extras,
+        },
         project_urls={
             'Source': 'https://github.com/shrivastava-v-ankit/database-factory/',
             'Tracker': 'https://github.com/shrivastava-v-ankit/database-factory/issues',
@@ -219,7 +262,6 @@ def do_setup():
             'Natural Language :: English',
             'License :: OSI Approved :: MIT License',
             'Operating System :: OS Independent',
-            'Programming Language :: Python :: 3.7',
             'Programming Language :: Python :: 3.8',
             'Programming Language :: Python :: 3.9',
             'Topic :: Software Development :: Libraries :: Python Modules',

@@ -29,6 +29,27 @@ Database factory can be enhanced for all the sqlalchemy supported database.
 ```bash
 pip install database-factory
 ```
+Note: Default installation for database factory is to support Sqlite3. For other database/cloud support it can be installed with compinations of extra libraries
+
+### Sqite3 with AWS cloud support
+```bash
+pip install database-factory["aws"]
+```
+
+### Snowflake with AWS cloud support
+```bash
+pip install database-factory["snowflake,aws"]
+```
+
+### Following options are supported
+   * Secret manager cloud support
+      * aws
+      * gcp
+   * Databases
+      * snowflake
+      * postgres
+      * mysql
+   * all: Will install with libraries of all supported cloud and supported databases.
 
 ### Using database-factory
 -----
