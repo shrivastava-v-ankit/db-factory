@@ -142,7 +142,10 @@ class DatabaseManager(object):
             # Check current OS, it is Windows or Linux
             is_windows = sys.platform.lower().startswith('win')
             if is_windows:
-                sqlite_db_path = f"{os.environ['HOMEDRIVE']}{os.environ['HOMEPATH']}"
+                sqlite_db_path = (
+                    f"{os.environ['HOMEDRIVE']}"
+                    f"{os.environ['HOMEPATH']}"
+                )
             else:
                 sqlite_db_path = os.environ['HOME']
 
@@ -211,7 +214,10 @@ class DatabaseManager(object):
         logger.info(f"Create URI for the engine '{self.engine}'")
 
         if self.engine_type not in SUPPORTED_ENGINE:
-            msg = f"Unsupported engine '{self.engine_type}'. Supported are '{SUPPORTED_ENGINE}'"
+            msg = (
+                f"Unsupported engine '{self.engine_type}'."
+                f" Supported are '{SUPPORTED_ENGINE}'"
+            )
             logger.error(msg)
             raise ValueError(msg)
 
@@ -251,11 +257,19 @@ class DatabaseManager(object):
             uri = 'sqlite:///' + os.path.join(self.sqlite_db_path,
                                               f"{self.database}.db")
         elif self.engine_type in ["postgres"]:
-            uri = f"postgresql+pg8000://{self.username}:{self.password}@{self.host}:{self.port}/{self.database}"
+            uri = (
+                f"postgresql+psycopg2://{self.username}:"
+                f"{self.password}@{self.host}:{self.port}"
+                f"/{self.database}"
+            )
             param = dict(client_encoding="utf8")
             is_not_dialect_desc = True
         elif self.engine_type in ["mysql", "mariadb"]:
-            uri = f"mysql+pymysql://{self.username}:{self.password}@{self.host}:{self.port}/{self.database}?charset=utf8mb4"
+            uri = (
+                f"mysql+pymysql://{self.username}:"
+                f"{self.password}@{self.host}:{self.port}"
+                f"/{self.database}?charset=utf8mb4"
+            )
         elif self.engine_type in ["snowflake"]:
             from snowflake.sqlalchemy import URL
             uri = URL(
