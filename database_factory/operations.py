@@ -10,6 +10,7 @@ import traceback
 import pandas
 from pandas import DataFrame
 from sqlalchemy.orm import scoped_session
+from sqlalchemy import text
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +121,7 @@ class Operations(object):
                                            con=self.session.bind,
                                            chunksize=chunk_size)
                 else:
-                    result = self.session.execute(sql)
+                    result = self.session.execute(text(sql))
 
                     if result.returns_rows:
                         rows = result.fetchall()
